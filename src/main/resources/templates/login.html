@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  src="/JQ.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        $("#LOGIN").click(function () {
+            var phone = $("#phone").val();
+            var password = $("#password").val();
+            $.ajax({
+                url: "/login/doLogin",
+                type: "POST",
+                data: {
+                    phone: phone,
+                    password: password
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.code == 200) {
+                        window.location.href = "/goods/goodList"
+                    }
+                }
+            });
+        })
+    })
+    // function doLogin() {
+    //     $.ajax({
+    //         url: "/login/doLogin",
+    //         type: "POST",
+    //         data: {
+    //             phone: $("#phone").val(),
+    //             password: $("#password").val()
+    //         },
+    //         success: function (data) {
+    //             alert(data.message);
+    //             if(data.code == 200){
+    //                 window.location.href="/goods/goodList"
+    //             }
+    //         }
+    //     });
+    // }
+</script>
+<body>
+    <form name="LoginForm" method="post" >
+        电话<input id="phone" name="phone" type="text">
+        密码<input id="password" name="password" type="password">
+        <button id="LOGIN" type="button" onclick="doLogin()">提交</button>
+    </form>
+</body>
+
+</html>

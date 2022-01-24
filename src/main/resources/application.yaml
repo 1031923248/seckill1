@@ -1,0 +1,74 @@
+spring:
+
+  thymeleaf:
+    cache: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bankms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: XTxt1234
+    hikari:
+      #????
+      pool-name: MSDP
+      #???????
+      minimum-idle: 5
+      #????????
+      max-lifetime: 1800000
+      #?????
+      maximum-pool-size: 10
+      #??????????
+      idle-timeout: 1800000
+      auto-commit: true
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  mvc:
+    static-path-pattern: /static/**
+  redis:
+    host: r-bp1kavgufkx72gvzm1pd.redis.rds.aliyuncs.com
+    port: 6379
+    database: 0
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 10000ms
+        max-idle: 200
+        min-idle: 3
+    password: XTxt1234
+  web:
+    resources:
+      add-mappings: true
+      cache:
+        cachecontrol:
+          max-age: 3600
+      chain:
+        cache: true
+        enabled: true
+        compressed: true
+  rabbitmq:
+    host: 114.55.234.204
+    username: amane
+    password: XTxt1234
+    virtual-host: /
+    port: 5672
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        prefetch: 1
+        auto-startup: true
+        default-requeue-rejected: true
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000ms
+        multiplier: 1
+        max-attempts: 3
+        max-interval: 10000ms
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  type-aliases-package: com.amane.seckill.pojo
+
+logging:
+  level:
+    com.amane.seckill.mapper: debug
