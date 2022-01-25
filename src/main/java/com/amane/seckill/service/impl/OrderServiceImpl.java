@@ -80,7 +80,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public OrderDetailVo detail(Long orderId) {
         if(orderId == null){
-            throw new GlobalException(RespBeanEnum.ORDER_NOT_EXSIT);
+            throw new GlobalException(RespBeanEnum.ORDER_NOT_EXIST);
         }
         Order order = orderMapper.selectById(orderId);
         GoodsVo goodsVo = goodService.getGoodsVoById(order.getGoodsId());

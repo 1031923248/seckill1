@@ -18,9 +18,13 @@ public enum RespBeanEnum {
     EMPTY_ERROR(504,"账号密码不能为空！"),
     BIND_ERROR(505,"参数校验失败！" ),
     STORK_EMPTY(506,"库存为空"),
-    REPEATE_ERROR(507,"每人限购一件商品"),
-    USER_NOT_EXSIT(508,"用户不存在"),
-    ORDER_NOT_EXSIT(510,"订单不存在")
+    REPEAT_ERROR(507,"每人限购一件商品"),
+    USER_NOT_EXIST(508,"用户不存在"),
+    ORDER_NOT_EXIST(510,"订单不存在"),
+    NOT_EMPTY(520,"注册信息不能为空"),
+    IDENTIFY_ERROR(521,"身份证号格式错误"),
+    REPEATED_PHONE(522,"该手机号已注册"),
+    REGISTER_SUCCESS(200,"注册成功")
     ;
 
     private Integer code;

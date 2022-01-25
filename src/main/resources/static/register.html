@@ -65,7 +65,30 @@
 <script src="layer/layer.js"></script>
 <script>
     function register(){
-        layer.msg("调用");
+        var username = $("#username").val();
+        var phone = $("#phone").val();
+        var password = $("#password").val();
+        var identity = $("#identity").val();
+        $.ajax({
+            url: "/register/doRegister",
+            data:{
+                name : username,
+                phone : phone,
+                password : password,
+                identity : identity
+            },
+            type: "POST",
+            success:function (data){
+                if (data.code==200){
+                    layer.msg("注册成功，跳转到登录页");
+                    setTimeout(function (){window.location.href="/login.html"},3000);
+                }else {
+                    layer.msg(data.message);
+                }
+            },error: function (){
+                layer.msg("客户端异常");
+            }
+        })
     }
 </script>
 </body>

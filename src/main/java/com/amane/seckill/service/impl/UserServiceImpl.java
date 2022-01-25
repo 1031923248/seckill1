@@ -7,6 +7,7 @@ import com.amane.seckill.utils.CookieUtil;
 import com.amane.seckill.utils.UUIDUtil;
 import com.amane.seckill.utils.VerifyLogin;
 import com.amane.seckill.vo.LoginVo;
+import com.amane.seckill.vo.RegisterVo;
 import com.amane.seckill.vo.RespBean;
 import com.amane.seckill.vo.RespBeanEnum;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -68,5 +69,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
             CookieUtil.setCookie(request,response,"userTicket",userTicket);
         }
         return user;
+    }
+
+    @Override
+    public RespBean doRegister(RegisterVo registerVo, HttpServletResponse response, HttpServletRequest request) {
+        String phone = registerVo.getPhone();
+        String password = registerVo.getPassword();
+        String name = registerVo.getName();
+        String identity = registerVo.getIdentity();
+        if (StringUtils.isEmpty(password) || StringUtils.isEmpty(phone) || StringUtils.isEmpty(name) || StringUtils.isEmpty(identity)){
+            return RespBean.error(RespBeanEnum.NOT_EMPTY);
+        }
+        if(!VerifyLogin.isMobile(phone)){
+            return RespBean.error(RespBeanEnum.PHONE_ERROR);
+        }
+        if (password.length()<6){
+            return RespBean.error(RespBeanEnum.PASSWORD_ERROR);
+        }
+        if (identity.length()!=18){
+            return RespBean.error(RespBeanEnum.IDENTIFY_ERROR);
+        }
+        if (userMapper.getByPhone(phone) != null){
+            return RespBean.error(RespBeanEnum.REPEATED_PHONE);
+        }
+        User user = new User();
+        user.setPhone(Long.valueOf(phone));
+        user.setIdentity(identity);
+        user.setName(name);
+        user.setPassword(password);
+        userMapper.insert(user);
+        return RespBean.success(RespBeanEnum.REGISTER_SUCCESS);
     }
 }

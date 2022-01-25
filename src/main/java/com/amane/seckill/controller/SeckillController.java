@@ -51,7 +51,7 @@ public class SeckillController implements InitializingBean {
     @ResponseBody
     public RespBean doKill( User user,Long goodsId){
         if(user == null){
-            return RespBean.error(RespBeanEnum.USER_NOT_EXSIT);
+            return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
         }
         if (emptyStock.get(goodsId)){
             return RespBean.error(RespBeanEnum.STORK_EMPTY);
@@ -60,7 +60,7 @@ public class SeckillController implements InitializingBean {
         ValueOperations valueOperations = redisTemplate.opsForValue();
         SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:"+user.getPhone()+":"+goodsId);
         if(seckillOrder != null){
-            return RespBean.error(RespBeanEnum.REPEATE_ERROR);
+            return RespBean.error(RespBeanEnum.REPEAT_ERROR);
         }
         Long stock = valueOperations.decrement("msGoods:"+goodsId);
         if (stock < 0){
@@ -93,7 +93,7 @@ public class SeckillController implements InitializingBean {
     @ResponseBody
     public RespBean getResult(User user,Long goodsId){
         if(user == null){
-            return RespBean.error(RespBeanEnum.USER_NOT_EXSIT);
+            return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
         }
         Long orderId = seckillOrderService.getResult(user,goodsId);
         return RespBean.success(orderId);

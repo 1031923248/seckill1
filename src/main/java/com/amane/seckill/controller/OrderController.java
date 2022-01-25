@@ -19,7 +19,7 @@ public class OrderController {
     @ResponseBody
     public RespBean getDetail(User user, Long orderId){
         if (user == null){
-            return RespBean.error(RespBeanEnum.USER_NOT_EXSIT);
+            return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
         }
         OrderDetailVo detailVo = orderService.detail(orderId);
         return RespBean.success(detailVo);

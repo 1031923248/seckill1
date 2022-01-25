@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -84,6 +85,12 @@ public class GoodController {
         RespBean respBean = RespBean.success(detailVo);
         System.out.println(respBean);
         return respBean;
+    }
+
+    @RequestMapping(value = "/getGoods",produces = "application/json")
+    @ResponseBody
+    public List<GoodsVo> getGoods(){
+        return goodService.getGoodsVo();
     }
     /*@RequestMapping(value = "/toDetail/{goodsId}", produces = "text/html;charset=utf-8")
     @ResponseBody
