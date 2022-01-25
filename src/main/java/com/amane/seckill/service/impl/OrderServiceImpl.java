@@ -10,6 +10,8 @@ import com.amane.seckill.service.GoodService;
 import com.amane.seckill.service.OrderService;
 import com.amane.seckill.service.SeckillGoodsService;
 import com.amane.seckill.service.SeckillOrderService;
+import com.amane.seckill.utils.MD5Util;
+import com.amane.seckill.utils.UUIDUtil;
 import com.amane.seckill.vo.GoodsVo;
 import com.amane.seckill.vo.OrderDetailVo;
 import com.amane.seckill.vo.RespBean;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
@@ -88,5 +91,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         detailVo.setGoodsVo(goodsVo);
         detailVo.setOrder(order);
         return detailVo;
+    }
+
+    @Override
+    public String createPath(User user, Long goodsId) {
+        String path = MD5Util.md5(UUIDUtil.uuid()+"13579");
+        redisTemplate.opsForValue().set("seckillPath:"+user.getPhone(),path,60, TimeUnit.SECONDS);
+        return path;
+    }
+
+    @Override
+    public boolean verifyPath(User user, Long goodsId,String path) {
+        if (user == null || StringUtils.isEmpty(path)){
+            return false;
+        }
+        String verify = (String) redisTemplate.opsForValue().get("seckillPath:"+user.getPhone());
+        return path.equals(verify);
     }
 }

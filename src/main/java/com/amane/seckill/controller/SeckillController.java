@@ -23,6 +23,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,9 +48,9 @@ public class SeckillController implements InitializingBean {
 
     private Map<Long,Boolean> emptyStock = new HashMap<>();
 
-    @RequestMapping(value = "/dokill",method = RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/{path}/dokill",method = RequestMethod.POST,produces = "application/json")
     @ResponseBody
-    public RespBean doKill( User user,Long goodsId){
+    public RespBean doKill(@PathVariable String path, User user, Long goodsId){
         if(user == null){
             return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
         }
@@ -58,6 +59,10 @@ public class SeckillController implements InitializingBean {
         }
 
         ValueOperations valueOperations = redisTemplate.opsForValue();
+        boolean check = orderService.verifyPath(user,goodsId,path);
+        if (!check){
+            return RespBean.error(RespBeanEnum.ILLEGAL_REQUEST);
+        }
         SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:"+user.getPhone()+":"+goodsId);
         if(seckillOrder != null){
             return RespBean.error(RespBeanEnum.REPEAT_ERROR);
@@ -88,7 +93,6 @@ public class SeckillController implements InitializingBean {
         Order order = orderService.seckill(user,goodsVo);
         return RespBean.success(order);*/
     }
-
     @RequestMapping(value = "/result",method = RequestMethod.GET)
     @ResponseBody
     public RespBean getResult(User user,Long goodsId){
@@ -109,7 +113,15 @@ public class SeckillController implements InitializingBean {
             emptyStock.put(goodsVo.getId(),false);
         });
      }
-
+    @RequestMapping(value = "/path",method = RequestMethod.GET)
+    @ResponseBody
+    public RespBean getPath(User user,Long goodsId){
+        if (user == null){
+            return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
+        }
+        String str = orderService.createPath(user,goodsId);
+        return RespBean.success(str);
+    }
     /*@RequestMapping("/dokill")
     public String doKill(Model model, User user,Long goodsId){
         if(user == null){
