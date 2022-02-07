@@ -9,38 +9,38 @@
 </head>
 <body>
     <a>添加商品页面</a>
-    <form method="post" action="/">
+    <form method="post" action="/admin/doAddGoods">
         <table>
             <tr>
                 <td><a>商品名称</a></td>
-                <td><input type="text" id="goods_name"></td>
+                <td><input type="text" name="goodsName" id="goodsName"></td>
             </tr>
             <tr>
                 <td><a>商品详情</a></td>
-                <td><input type="text" id="goods_detail"></td>
+                <td><input type="text" name="goodsDetail" id="goodsDetail"></td>
             </tr>
             <tr>
                 <td><a>商品原价</a></td>
-                <td><input type="text" id="goods_original_price"></td>
+                <td><input type="text" name="goodsPrice" id="goodsPrice"></td>
             </tr>
             <tr>
                 <td><a>商品秒杀价</a></td>
-                <td><input type="text" id="goods_ms_price"></td>
+                <td><input type="text" name="seckillPrice" id="seckillPrice"></td>
             </tr>
             <tr>
                 <td><a>秒杀数量</a></td>
-                <td><input type="text" id="goods_ms_account"></td>
+                <td><input type="text" name="stockCount" id="stockCount"></td>
             </tr>
             <tr>
                 <td><label class="control-label">开始时间</label></td>
-                <td><input id="beginDate" name="beginDate" onclick="WdatePicker({dateFmt:'yyyy年MM月dd日 HH时mm分ss秒',readOnly:'readOnly'})"></td>
+                <td><input id="beginDate" name="startDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:'readOnly'})"></td>
             </tr>
             <tr>
                 <td>
                     <label class="control-label">结束时间</label>
                 </td>
                 <td>
-                    <input id="end-time" name="endDate" onclick="WdatePicker({dateFmt:'yyyy年MM月dd日 HH时mm分ss秒',readOnly:'readOnly'})">
+                    <input id="end-time" name="endDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:'readOnly'})">
                 </td>
             </tr>
             <tr>

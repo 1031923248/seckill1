@@ -46,7 +46,9 @@ public class SeckillController implements InitializingBean {
     @Autowired
     private MQSender mqSender;
 
-    private Map<Long,Boolean> emptyStock = new HashMap<>();
+    public static Map<Long,Boolean> emptyStock = new HashMap<>();
+
+
 
     @RequestMapping(value = "/{path}/dokill",method = RequestMethod.POST,produces = "application/json")
     @ResponseBody
@@ -103,7 +105,7 @@ public class SeckillController implements InitializingBean {
         return RespBean.success(orderId);
     }
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         List<GoodsVo> goods = goodService.getGoodsVo();
         if(CollectionUtils.isEmpty(goods)){
             return;

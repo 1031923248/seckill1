@@ -25,7 +25,8 @@ public enum RespBeanEnum {
     IDENTIFY_ERROR(521,"身份证号格式错误"),
     REPEATED_PHONE(522,"该手机号已注册"),
     REGISTER_SUCCESS(200,"注册成功"),
-    ILLEGAL_REQUEST(520,"非法请求")
+    ILLEGAL_REQUEST(520,"非法请求"),
+    REPEAT_GOOD(530,"该商品已经存在")
     ;
 
     private Integer code;

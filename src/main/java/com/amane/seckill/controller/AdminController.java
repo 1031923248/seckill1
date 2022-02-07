@@ -3,6 +3,7 @@ package com.amane.seckill.controller;
 import com.amane.seckill.service.AdminService;
 import com.amane.seckill.utils.CookieUtil;
 import com.amane.seckill.vo.AdminVo;
+import com.amane.seckill.vo.GoodsVo;
 import com.amane.seckill.vo.RespBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,11 @@ public class AdminController {
     public RespBean adminLogin(AdminVo adminVo, HttpServletRequest request, HttpServletResponse response){
         log.info("{}",adminVo);
         return adminService.doLogin(adminVo,request,response);
+    }
+    @RequestMapping("/doAddGoods")
+    @ResponseBody
+    public RespBean doAddGoods(GoodsVo goodsVo){
+        log.info("{}",goodsVo);
+        return adminService.addGoods(goodsVo);
     }
 }
