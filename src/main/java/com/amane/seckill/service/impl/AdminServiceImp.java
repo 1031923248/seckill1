@@ -67,6 +67,7 @@ public class AdminServiceImp extends ServiceImpl<AdminMapper, AdminVo> implement
         BigDecimal price = goodsVo.getGoodsPrice();
         BigDecimal seckillPrice = goodsVo.getSeckillPrice();
         Integer stockCount = goodsVo.getStockCount();
+        String goodImg = "/img/"+goodsVo.getGoodsImg();
         Date startDate = goodsVo.getStartDate();
         if (goodsMapper.findGoodByName(name) != null){
             return RespBean.error(RespBeanEnum.REPEAT_GOOD);
@@ -78,6 +79,7 @@ public class AdminServiceImp extends ServiceImpl<AdminMapper, AdminVo> implement
         good.setGoodsName(name);
         good.setGoodsStock(stockCount);
         good.setGoodsPrice(price);
+        good.setGoodsImg(goodImg);
         goodsMapper.insert(good);
         Goods goods = goodsMapper.findGoodByName(name);
         Long id = goods.getId();

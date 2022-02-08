@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum RespBeanEnum {
     //通用
-    SUCCESS(200, "登录成功"),
+    SUCCESS(200, "成功"),
     ERROR(500,"登录失败"),
     //登录失败
     LOGIN_ERROR(501,"用户名或密码不正确！"),
@@ -26,7 +26,9 @@ public enum RespBeanEnum {
     REPEATED_PHONE(522,"该手机号已注册"),
     REGISTER_SUCCESS(200,"注册成功"),
     ILLEGAL_REQUEST(520,"非法请求"),
-    REPEAT_GOOD(530,"该商品已经存在")
+    REPEAT_GOOD(530,"该商品已经存在"),
+    SIZE_OVER(540,"文件必须小于4M"),
+    UPLOAD_COMPLETE(200,"上传成功！")
     ;
 
     private Integer code;

@@ -6,47 +6,115 @@
     <script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <script src="./layui/layui.js"></script>
 </head>
 <body>
-    <a>添加商品页面</a>
-    <form method="post" action="/admin/doAddGoods">
-        <table>
-            <tr>
-                <td><a>商品名称</a></td>
-                <td><input type="text" name="goodsName" id="goodsName"></td>
-            </tr>
-            <tr>
-                <td><a>商品详情</a></td>
-                <td><input type="text" name="goodsDetail" id="goodsDetail"></td>
-            </tr>
-            <tr>
-                <td><a>商品原价</a></td>
-                <td><input type="text" name="goodsPrice" id="goodsPrice"></td>
-            </tr>
-            <tr>
-                <td><a>商品秒杀价</a></td>
-                <td><input type="text" name="seckillPrice" id="seckillPrice"></td>
-            </tr>
-            <tr>
-                <td><a>秒杀数量</a></td>
-                <td><input type="text" name="stockCount" id="stockCount"></td>
-            </tr>
-            <tr>
-                <td><label class="control-label">开始时间</label></td>
-                <td><input id="beginDate" name="startDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:'readOnly'})"></td>
-            </tr>
-            <tr>
-                <td>
-                    <label class="control-label">结束时间</label>
-                </td>
-                <td>
-                    <input id="end-time" name="endDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:'readOnly'})">
-                </td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="提交"></td>
-            </tr>
-        </table>
+    <form method="post" class="layui-form layui-form-pane" action="/admin/doAddGoods">
+        <div class="layui-container">
+            <div class="layui-row layui-header layui-col-lg-offset4">
+                <div class="layui-form-item" >
+                    <label class="layui-form-label">商品名称</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" name="goodsName" id="goodsName" required  lay-verify="required" placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品详情</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" name="goodsDetail" id="goodsDetail" required  lay-verify="required" placeholder="请输入商品详情" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品原价</label>
+                    <div class="layui-input-block" style="width: 200px;" >
+                        <input type="text" name="goodsPrice" id="goodsPrice" required  lay-verify="required" placeholder="请输入商品原价" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品秒杀价</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" name="seckillPrice" id="seckillPrice" required  lay-verify="required" placeholder="请输入商品秒杀价" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">秒杀数量</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" name="stockCount" id="stockCount" required  lay-verify="required" placeholder="请输入秒杀数量" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">开始时间</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" name="startDate" id="startDate" required  lay-verify="required" placeholder="选择秒杀开始时间" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">结束时间</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" class="layui-input" name="endDate" id="endDate" required  lay-verify="required" placeholder="选择秒杀结束时间" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品图片</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <button type="button" class="layui-btn" name="goodImg" id="upload">
+                            <i class="layui-icon">&#xe67c;</i>上传图片
+                        </button>
+                    </div>
+                </div>
+
+                <input type="text" name="goodsImg" id="goodsImg" hidden>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="submit" class="layui-btn" id="submit" lay-submit lay-filter="formDemo">
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </form>
+
+    <script>
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#endDate'
+                ,
+                type: 'datetime'
+                , format: 'yyyy-MM-dd HH:mm:ss' //可任意组合
+            });
+        })
+
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#startDate'
+                ,
+                type: 'datetime'
+                , format: 'yyyy-MM-dd HH:mm:ss' //可任意组合
+            });
+        })
+
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            var uploadInst = upload.render({
+                elem: '#upload' //绑定元素
+                ,url: '/upload' //上传接口
+                // ,auto: false //选择文件后不自动上传
+                // ,bindAction: '#submit' //指向一个按钮触发上传
+                ,done: function(data){
+                    var imgName = data.obj;
+                    layer.msg(data.message);
+                    $("#goodsImg").val(imgName);
+                }
+                ,error: function(){
+                }
+            });
+        });
+    </script>
 </body>
 </html>
