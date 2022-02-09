@@ -17,6 +17,7 @@ public class FileUploadController {
     @RequestMapping("/upload")
     @ResponseBody
     public RespBean upload(@RequestPart("file")MultipartFile goodImg) throws IOException {
+        String staticPath = this.getClass().getClassLoader().getResource("static").getFile()+"/img/";
         String originalFilename = null;
         if(!goodImg.isEmpty()){
             if (goodImg.getSize() >= 4096 * 1024){
@@ -25,7 +26,8 @@ public class FileUploadController {
             //保存到文件服务器，OSS服务器
              originalFilename = goodImg.getOriginalFilename();
             log.info(originalFilename);
-            goodImg.transferTo(new File("D:\\"+originalFilename));
+            log.info(staticPath+originalFilename);
+            goodImg.transferTo(new File(staticPath+originalFilename));
         }
         return RespBean.success(originalFilename);
     }
