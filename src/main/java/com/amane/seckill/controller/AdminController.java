@@ -28,7 +28,7 @@ public class AdminController {
         if (StringUtils.isEmpty(ticket)){
             return "redirect:/login.html";
         }
-        return "addGoods";
+        return "redirect:/addGoods.html";
     }
     @RequestMapping("/adminLogin")
     @ResponseBody
