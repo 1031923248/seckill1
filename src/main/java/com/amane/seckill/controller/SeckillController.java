@@ -16,6 +16,7 @@ import com.amane.seckill.vo.RespBeanEnum;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rabbitmq.tools.json.JSONUtil;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import com.sun.xml.internal.ws.client.RequestContext;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

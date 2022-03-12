@@ -28,7 +28,8 @@ public enum RespBeanEnum {
     ILLEGAL_REQUEST(520,"非法请求"),
     REPEAT_GOOD(530,"该商品已经存在"),
     SIZE_OVER(540,"文件必须小于4M"),
-    UPLOAD_COMPLETE(200,"上传成功！")
+    UPLOAD_COMPLETE(200,"上传成功！"),
+    DELETE_ERROR(550,"删除失败")
     ;
 
     private Integer code;

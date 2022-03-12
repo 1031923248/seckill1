@@ -3,6 +3,8 @@ package com.amane.seckill.config;
 import com.amane.seckill.pojo.User;
 import com.amane.seckill.service.UserService;
 import com.amane.seckill.utils.CookieUtil;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

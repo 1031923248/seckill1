@@ -8,6 +8,7 @@ import com.amane.seckill.vo.RespBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
@@ -30,6 +31,10 @@ public class AdminController {
         }
         return "redirect:/addGoods.html";
     }
+    @RequestMapping(value = "/deleteGoods")
+    public String toDelete(){
+        return "redirect:/goodsManager.html";
+    }
     @RequestMapping("/adminLogin")
     @ResponseBody
     public RespBean adminLogin(AdminVo adminVo, HttpServletRequest request, HttpServletResponse response){
@@ -41,5 +46,10 @@ public class AdminController {
     public RespBean doAddGoods(GoodsVo goodsVo){
         log.info("{}",goodsVo);
         return adminService.addGoods(goodsVo);
+    }
+    @RequestMapping("/deleteGood/{id}")
+    @ResponseBody
+    public RespBean doDeleteGood(@PathVariable("id") Long id){
+        return adminService.deleteGood(id);
     }
 }

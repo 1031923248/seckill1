@@ -12,4 +12,5 @@ import javax.servlet.http.HttpServletResponse;
 public interface AdminService {
     RespBean doLogin(AdminVo adminVo, HttpServletRequest request, HttpServletResponse response);
     RespBean addGoods(GoodsVo goodsVo);
+    RespBean deleteGood(Long id);
 }

@@ -93,4 +93,13 @@ public class AdminServiceImp extends ServiceImpl<AdminMapper, AdminVo> implement
         redisTemplate.opsForValue().set("msGoods:"+id,stockCount);
         return RespBean.success();
     }
+
+    @Override
+    public RespBean deleteGood(Long id) {
+        int res = goodsMapper.deleteById(id);
+        if (res==0){
+            return RespBean.error(RespBeanEnum.DELETE_ERROR);
+        }
+        return RespBean.success("删除成功");
+    }
 }
