@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品详情</title>
+    <title>存款商品详情</title>
     <!-- jquery -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- bootstrap -->
@@ -13,26 +13,40 @@
     <script type="text/javascript" src="layer/layer.js"></script>
     <!-- common.js -->
     <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <script src="./layui/layui.js"></script>
 </head>
 <body>
 <div class="panel panel-default">
-    <div class="panel-heading">秒杀商品详情</div>
+    <div class="panel-heading layui-bg-green layui-col-lg-md6">秒杀商品详情</div>
     <div class="panel-body">
         <span id="userTip"> 您还没有登录，请登陆后再操作<br/></span>
-        <span>没有收货地址的提示。。。</span>
     </div>
     <table class="table" id="goods">
         <tr>
-            <td>商品名称</td>
-            <td colspan="3" id="goodsName"></td>
+            <div class="layui-row">
+                <div class="layui-panel">
+                    <td class="layui-bg-green">商品名称</td>
+                </div>
+                <div class="layui-col-md3">
+                    <td id="goodsName"></td>
+                </div>
+            </div>
         </tr>
         <tr>
-            <td>商品图片</td>
-            <td colspan="3"><img id="goodsImg" width="200" height="200"/></td>
-        </tr>
-        <tr>
-            <td>秒杀开始时间</td>
+            <div class="layui-row">
+                <div class="layui-col-md3 layui-panel">
+                    <td class="layui-bg-gray">商品图片</td>
+                </div>
+                <div class="layui-col-md3">
+                    <td colspan="3"><img id="goodsImg" width="100" height="100"/></td>
+                </div>
+            </div>
 
+
+        </tr>
+        <tr>
+            <td class="layui-bg-green layui-panel">秒杀开始时间</td>
             <td id="startTime"></td>
             <td>
                 <input type="hidden" id="remainSeconds" >
@@ -47,19 +61,19 @@
                     <button id="msbtn" type="submit" class="btn btn-block btn-primary">立即秒杀</button>
                 </form>-->
                 <input type="hidden" name="goodsId" id="goodsId" >
-                <button id="msbtn" type="button" onclick="getPath()" class="btn btn-block btn-primary">立即秒杀</button>
+                <button id="msbtn" type="button" onclick="getPath()" class="btn btn-block btn-primary layui-bg-green">立即秒杀</button>
             </td>
         </tr>
         <tr>
-            <td>商品原价</td>
+            <td class="layui-bg-gray layui-panel">商品原价</td>
             <td colspan="3" id="goodsPrice"></td>
         </tr>
         <tr>
-            <td>秒杀价</td>
+            <td class="layui-bg-green">秒杀价格</td>
             <td colspan="3" id="seckillPrice"></td>
         </tr>
         <tr>
-            <td>库存数量</td>
+            <td class="layui-bg-gray">库存数量</td>
             <td colspan="3" id="stockCount"></td>
         </tr>
     </table>
@@ -83,6 +97,8 @@
                 if(data.code == 200){
                     var path = data.obj;
                     doSeckill(path);
+                }else if(data.code==508){
+                    window.location.href = "login.html";
                 }else {
                     layer.msg(data.message);
                 }

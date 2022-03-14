@@ -12,20 +12,18 @@ import com.amane.seckill.service.SeckillGoodsService;
 import com.amane.seckill.service.SeckillOrderService;
 import com.amane.seckill.utils.MD5Util;
 import com.amane.seckill.utils.UUIDUtil;
-import com.amane.seckill.vo.GoodsVo;
-import com.amane.seckill.vo.OrderDetailVo;
-import com.amane.seckill.vo.RespBean;
-import com.amane.seckill.vo.RespBeanEnum;
+import com.amane.seckill.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -91,6 +89,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         detailVo.setGoodsVo(goodsVo);
         detailVo.setOrder(order);
         return detailVo;
+    }
+
+    @Override
+    public List<ResultVo> getResult(Long goodsId) {
+        return orderMapper.findResultByGoodsID(goodsId);
     }
 
     @Override

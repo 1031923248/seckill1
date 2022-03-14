@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.context.WebContext;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,28 +32,26 @@ public class GoodController {
     GoodService goodService;
     @Autowired
     RedisTemplate redisTemplate;
-    @Autowired
-    ThymeleafViewResolver thymeleafViewResolver;
-    @RequestMapping("/goodList")
-    @ResponseBody
-    public String toGood(Model model, User user, HttpServletResponse response, HttpServletRequest request){
-//        if (user == null){
-//            return "login";
+//    @RequestMapping("/goodList")
+//    @ResponseBody
+//    public String toGood(Model model, User user, HttpServletResponse response, HttpServletRequest request){
+////        if (user == null){
+////            return "login";
+////        }
+//        ValueOperations valueOperations = redisTemplate.opsForValue();
+//        String html = (String) valueOperations.get("goods");
+//        if(!StringUtils.isEmpty(html)){
+//            return html;
 //        }
-        ValueOperations valueOperations = redisTemplate.opsForValue();
-        String html = (String) valueOperations.get("goods");
-        if(!StringUtils.isEmpty(html)){
-            return html;
-        }
-        model.addAttribute("goodsList",goodService.getGoodsVo());
-        model.addAttribute( "user",user);
-        WebContext webContext = new WebContext(request,response,request.getServletContext(),request.getLocale(), model.asMap());
-        html = thymeleafViewResolver.getTemplateEngine().process("goods",webContext);
-        if (!StringUtils.isEmpty(html)){
-            valueOperations.set("goods",html,60, TimeUnit.SECONDS);
-        }
-        return html;
-    }
+//        model.addAttribute("goodsList",goodService.getGoodsVo());
+//        model.addAttribute( "user",user);
+//        WebContext webContext = new WebContext(request,response,request.getServletContext(),request.getLocale(), model.asMap());
+//        html = thymeleafViewResolver.getTemplateEngine().process("goods",webContext);
+//        if (!StringUtils.isEmpty(html)){
+//            valueOperations.set("goods",html,60, TimeUnit.SECONDS);
+//        }
+//        return html;
+//    }
 
     @RequestMapping( value = "/toDetail/{goodsId}",produces = "application/json")
     @ResponseBody

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品列表</title>
+    <title>秒杀成功用户</title>
     <!-- jquery -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- bootstrap -->
@@ -17,15 +17,12 @@
 </head>
 <body>
 <div class="panel panel-default">
-    <div class="panel-heading">秒杀商品管理</div>
+    <div class="panel-heading layui-bg-cyan">秒杀成功用户</div>
     <table class="table" id="goodslist">
         <tr>
-            <td class="layui-bg-green">商品名称</td>
-            <td >商品图片</td>
-            <td class="layui-bg-green">商品原价</td>
-            <td>秒杀价</td>
-            <td class="layui-bg-green">库存数量</td>
-            <td>操作</td>
+            <td class="layui-bg-green" >用户</td>
+            <td >秒杀时间</td>
+            <td class="layui-bg-green">支付状态</td>
         </tr>
         <tbody id="table_node">
         <!--动态载入数据-->
@@ -33,32 +30,33 @@
         </tbody>
     </table>
 </div>
-<button class="layui-btn layui-col-lg-offset5" id="toAddGoods" onclick="window.location.href='/admin/addGoods'">添加秒杀商品</button>
+<button class="layui-btn layui-col-md2" id="toAddGoods" onclick="window.location.href='goodsManager.html'">返回上一级</button>
 <script>
     /**
      * 自动加载规则流水信息
      */
 
     window.onload = function () {
-
+        var goodsId = g_getQueryString("goodsId");
         $.ajax({
             type: 'GET',
-            url: "/goods/getGoods",
+            url: "/order/result",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
+            data :{
+                goodsId : goodsId
+            },
             success: function (data){
                 $("#table_node").empty()
                 //取出后端传过来的list值
                 //对list值进行便利
                 $.each(data, function (index, element) {
-                    var good = "<tr>"+"<td>" + data[index].goodsName +  "</td>"
-                        + "<td>" + "<img src='"+element.goodsImg+"' width='100' height='100'/>" + "</td>"
-                        + "<td>" + element.goodsPrice + "</td>"
-                        + "<td>" + element.seckillPrice + "</td>"
-                        + "<td>" + element.stockCount + "</td>"
-                        + "<td>" + "<a class='layui-btn' href='/admin/deleteGood/" +element.id + "'>删除</a>"+"</td>>"+"</tr>"
+                    var order = "<tr>"+"<td class='layui-bg-green'>" + element.userId +  "</td>"
+                        + "<td>" + element.createDate + "</td>"
+                        + "<td class='layui-bg-green'>未支付</td>"
+                        +"</tr>"
                     //将信息追加
-                    $("#table_node").append(good);
+                    $("#table_node").append(order);
                 });
             }
         });

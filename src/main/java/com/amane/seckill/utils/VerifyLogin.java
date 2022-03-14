@@ -1,6 +1,7 @@
 package com.amane.seckill.utils;
 
-import org.thymeleaf.util.StringUtils;
+
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 
 import java.util.regex.Pattern;
 

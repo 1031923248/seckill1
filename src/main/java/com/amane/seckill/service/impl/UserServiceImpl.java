@@ -10,11 +10,11 @@ import com.amane.seckill.vo.LoginVo;
 import com.amane.seckill.vo.RegisterVo;
 import com.amane.seckill.vo.RespBean;
 import com.amane.seckill.vo.RespBeanEnum;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

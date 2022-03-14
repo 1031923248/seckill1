@@ -61,7 +61,7 @@
                     success: function (data) {
                         if (data.code == 200) {
                             layer.msg("登录成功，3秒后自动跳转");
-                            setTimeout(function (){window.location.href = "/goods/goodList"},3000);
+                            setTimeout(function (){window.location.href = "/goods.html"},3000);
                         }else {
                             layer.msg(data.message);
                         }
