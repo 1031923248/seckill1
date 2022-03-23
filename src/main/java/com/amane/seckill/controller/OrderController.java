@@ -34,4 +34,17 @@ public class OrderController {
         List<ResultVo> resultVo = orderService.getResult(goodsId);
         return resultVo;
     }
+    @RequestMapping(value = "/check",produces = "application/json")
+    @ResponseBody
+    public List<ResultVo> checkOrder(Long userId){
+        List<ResultVo> resultVos = orderService.checkOrder(userId);
+        return resultVos;
+    }
+    @RequestMapping(value = "/pay/{result}")
+    public String toDetail(User user,@PathVariable("result") Long result){
+        if(user == null){
+            return "forward:/login/toLogin";
+        }
+        return "forward:/orderDetail.htm?orderId="+result;
+    }
 }

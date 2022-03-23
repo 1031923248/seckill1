@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀成功用户</title>
+    <!-- jquery -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- layer -->
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <!-- common.js -->
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <script src="./layui/layui.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading layui-bg-cyan">订单详情</div>
+    <table class="table" id="goodslist">
+        <tr>
+            <td class="layui-bg-green">产品名称</td>
+            <td>秒杀时间</td>
+            <td class="layui-bg-green">支付状态</td>
+        </tr>
+        <tbody id="table_node">
+
+        </tbody>
+    </table>
+</div>
+<button class="layui-btn layui-col-md2" id="toAddGoods" onclick="window.location.href='goods.html'">返回上一级</button>
+<script>
+    /**
+     * 自动加载规则流水信息
+     */
+
+    window.onload = function () {
+        var goodsId = g_getQueryString("userId");
+        $.ajax({
+            type: 'GET',
+            url: "/order/check",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data :{
+                goodsId : goodsId
+            },
+            success: function (data){
+                $("#table_node").empty()
+                //取出后端传过来的list值
+                //对list值进行便利
+                $.each(data, function (index, element) {
+                    var order = "<tr>"+"<td class='layui-bg-green'>" + element.goodsName +  "</td>"
+                        + "<td>" + element.createDate + "</td>"
+                        + "<td class='layui-bg-green'>未支付</td>"
+                        +"</tr>"
+                    //将信息追加
+                    $("#table_node").append(order);
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

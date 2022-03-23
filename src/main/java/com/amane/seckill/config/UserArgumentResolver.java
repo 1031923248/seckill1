@@ -3,6 +3,7 @@ package com.amane.seckill.config;
 import com.amane.seckill.pojo.User;
 import com.amane.seckill.service.UserService;
 import com.amane.seckill.utils.CookieUtil;
+import com.amane.seckill.utils.UserUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
@@ -20,11 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     @Autowired
     private UserService service;
+
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         Class<?> parameterType = parameter.getParameterType();
         return parameterType == User.class;
     }
+
+
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
@@ -34,6 +38,27 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         if (StringUtils.isEmpty(ticket)){
             return null;
         }
-        return service.getUserByCookie(ticket,response,request);
+        User user = service.getUserByCookie(ticket,response,request);
+        /*
+        * 开启用户准入决策系统
+        * 注释掉为关闭
+        * */
+
+        /*if (!filterUser(user)){
+            return new User();
+        }*/
+
+        return user;
+    }
+
+    public boolean filterUser(User user){
+        Integer age = user.getAge();
+        Integer jobStatus = user.getJob();
+        Integer faith = user.getCredit();
+        Integer isYuqi = user.getYuqi();
+        if (age < 18 || jobStatus == 0 || faith == 0 || isYuqi == 1){
+            return false;
+        }
+        return true;
     }
 }

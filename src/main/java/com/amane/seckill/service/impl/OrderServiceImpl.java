@@ -111,4 +111,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         String verify = (String) redisTemplate.opsForValue().get("seckillPath:"+user.getPhone());
         return path.equals(verify);
     }
+
+    @Override
+    public List<ResultVo> checkOrder(Long userId) {
+        return orderMapper.findResultByUserId(userId);
+    }
 }

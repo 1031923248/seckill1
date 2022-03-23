@@ -56,6 +56,7 @@ public class GoodController {
     @RequestMapping( value = "/toDetail/{goodsId}",produces = "application/json")
     @ResponseBody
     public RespBean toDetail(User user, @PathVariable Long goodsId){
+
         GoodsVo goodsVo = goodService.getGoodsVoById(goodsId);
         Date startTime = goodsVo.getStartDate();
         Date endTime = goodsVo.getEndDate();
@@ -86,6 +87,24 @@ public class GoodController {
     @ResponseBody
     public List<GoodsVo> getGoods(){
         return goodService.getGoodsVo();
+    }
+
+    @RequestMapping("/goodList")
+    public String toGood(User user){
+        if (user == null){
+            return "forward:/login.html";
+        }
+        return "forward:/goods.html";
+    }
+
+    @RequestMapping("/goodDetail/{goodID}")
+    public String toGoodDetail(User user, @PathVariable("goodID") Long id){
+        if (user == null){
+            return "forward:/login/toLogin";
+        }else if (user.getPhone() == 0L){
+            return "forward:/fail.html";
+        }
+        return "forward:/goodsDetail.htm?goodsId="+id;
     }
     /*@RequestMapping(value = "/toDetail/{goodsId}", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -122,6 +141,7 @@ public class GoodController {
         }
         return html;
     }*/
+
 
 //    @RequestMapping("/goodList")
 //    public String toGood(HttpServletRequest request, HttpServletResponse response, Model model, @CookieValue("userTicket") String ticket){

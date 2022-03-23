@@ -19,4 +19,6 @@ public interface OrderService extends IService<Order> {
     String createPath(User user, Long goodsId);
 
     boolean verifyPath(User user, Long goodsId,String path);
+
+    List<ResultVo> checkOrder(Long userId);
 }

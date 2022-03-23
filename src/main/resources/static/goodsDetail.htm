@@ -3,22 +3,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>存款商品详情</title>
+    <title>存款产品详情</title>
     <!-- jquery -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
     <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <!-- layer -->
-    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
     <!-- common.js -->
-    <script type="text/javascript" src="js/common.js"></script>
-    <link rel="stylesheet" href="./layui/css/layui.css">
-    <script src="./layui/layui.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
 </head>
 <body>
 <div class="panel panel-default">
-    <div class="panel-heading layui-bg-green layui-col-lg-md6">秒杀商品详情</div>
+    <div class="panel-heading layui-bg-green layui-col-lg-md6">秒杀产品详情</div>
     <div class="panel-body">
         <span id="userTip"> 您还没有登录，请登陆后再操作<br/></span>
     </div>
@@ -26,7 +26,7 @@
         <tr>
             <div class="layui-row">
                 <div class="layui-panel">
-                    <td class="layui-bg-green">商品名称</td>
+                    <td class="layui-bg-green">产品名称</td>
                 </div>
                 <div class="layui-col-md3">
                     <td id="goodsName"></td>
@@ -36,7 +36,7 @@
         <tr>
             <div class="layui-row">
                 <div class="layui-col-md3 layui-panel">
-                    <td class="layui-bg-gray">商品图片</td>
+                    <td class="layui-bg-gray">产品图片</td>
                 </div>
                 <div class="layui-col-md3">
                     <td colspan="3"><img id="goodsImg" width="100" height="100"/></td>
@@ -65,8 +65,8 @@
             </td>
         </tr>
         <tr>
-            <td class="layui-bg-gray layui-panel">商品原价</td>
-            <td colspan="3" id="goodsPrice"></td>
+            <td class="layui-bg-gray layui-panel">产品描述</td>
+            <td colspan="3" id="goodsDetail"></td>
         </tr>
         <tr>
             <td class="layui-bg-green">秒杀价格</td>
@@ -81,6 +81,10 @@
 </body>
 <script>
     $(function (){
+        layer.open({
+            title: '规则提示'
+            ,content: '本次秒杀每人限购一件，存款商品数量有限，售完秒杀结束。秒杀未开始时不能点击秒杀按钮，秒杀开始后点击立即秒杀进行秒杀操作。'
+        });
         getDetails();
     });
 
@@ -98,7 +102,7 @@
                     var path = data.obj;
                     doSeckill(path);
                 }else if(data.code==508){
-                    window.location.href = "login.html";
+                    window.location.href = "/login/toLogin";
                 }else {
                     layer.msg(data.message);
                 }
@@ -111,7 +115,7 @@
 
     function doSeckill(path){
         $.ajax({
-            url: 'seckill/'+path+'/dokill',
+            url: '/seckill/'+path+'/dokill',
             type: 'POST',
             data: {
                 goodsId:$("#goodsId").val()
@@ -119,6 +123,7 @@
             success:function (data){
                 if(data.code == 200){
                     //window.location.href = "orderDetail.htm?orderId="+data.obj.id;
+                    g_showLoading();
                     getResult();
                 }else{
                     layer.msg(data.message);
@@ -131,7 +136,7 @@
     }
 
     function getResult(){
-        g_showLoading();
+        //g_showLoading();
         $.ajax({
             url: '/seckill/result',
             type: 'GET',
@@ -150,13 +155,13 @@
                     }else {
                         layer.confirm("恭喜您,秒杀成功。是否查看订单？",{btn:["确定","取消"]},
                             function (){
-                                window.location.href = "orderDetail.htm?orderId="+result;
+                                window.location.href="/order/pay/"+result;
+                                // window.location.href = "/orderDetail.htm?orderId="+result;
                             },
                             function (){
                                 layer.close();
                             }
                         )
-
                     }
                 }
             },error: function (){
@@ -166,7 +171,7 @@
     }
 
     function getDetails(){
-        var goodsId = g_getQueryString("goodsId");
+        var goodsId = location.pathname.match('[^/]+(?!.*/)')[0];
         $.ajax({
             url:'/goods/toDetail/'+goodsId,
             type:'GET',
@@ -194,7 +199,7 @@
         $("#goodsImg").attr("src",goods.goodsImg);
         $("#startTime").text(new Date(goods.startDate).format("yyyy-MM-dd HH:mm:ss"));
         $("#goodsId").val(goods.id);
-        $("#goodsPrice").text(goods.goodsPrice);
+        $("#goodsDetail").text(goods.goodsDetail);
         $("#seckillPrice").text(goods.seckillPrice);
         $("#stockCount").text(goods.stockCount);
         countDown(remainSeconds);

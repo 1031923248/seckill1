@@ -10,6 +10,9 @@ public class ResultVo {
     @TableId("user_id")
     private String userId;
 
+    @TableId("goods_name")
+    private String goodsName;
+
     @TableId("create_date")
     private String createDate;
 }

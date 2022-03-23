@@ -51,8 +51,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         }
 
         String ticket = UUIDUtil.uuid();
+
         redisTemplate.opsForValue().set("user:"+ticket,user);
-        //request.getSession().setAttribute(ticket,user);
 
         CookieUtil.setCookie(request,response,"userTicket",ticket);
 

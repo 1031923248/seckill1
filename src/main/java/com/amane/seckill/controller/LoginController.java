@@ -25,7 +25,7 @@ public class LoginController {
     private AdminService adminService;
     @RequestMapping("/toLogin")
     public String toLogin(){
-        return "redirect:/login.html";
+        return "forward:/login.html";
     }
 
     @RequestMapping("/doLogin")

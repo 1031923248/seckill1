@@ -4,14 +4,14 @@
     <title>订单详情</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- jquery -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
     <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <!-- layer -->
-    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
     <!-- common.js -->
-    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
 </head>
 <body>
 <div class="panel panel-default">
@@ -64,7 +64,7 @@
     })
 
     function getOrderDetail(){
-        var orderId = g_getQueryString("orderId");
+        var orderId = location.pathname.match('[^/]+(?!.*/)')[0];
         $.ajax({
             url: '/order/detail',
             type: 'GET',
@@ -74,7 +74,10 @@
             success:function (data){
                 if(data.code == 200){
                     render(data);
-                }else{
+                }else if(data.code == 508){
+                    window.location.href="/login/toLogin";
+                }
+                else{
                     layer.msg(data.message);
                 }
             },
@@ -88,6 +91,7 @@
         var obj = detail.obj;
         var goods = obj.goodsVo;
         var order = obj.order;
+        $("#goodsName").text(goods.goodsName);
         $("#goodsId").text(goods.id);
         $("#goodsPrice").text(goods.goodsPrice);
         $("#createDate").text(new Date(order.createDate).format("yyyy-MM-dd HH:mm:ss"));

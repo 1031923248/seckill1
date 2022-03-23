@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>错误提示</title>
+    <!-- jquery -->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- layer -->
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <!-- common.js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+</body>
+<script>
+    $(function (){
+        layer.open({
+            title: '无资格参加活动',
+            content: '非常抱歉，您不能参加此活动',
+            yes: function(){
+                window.location.href = "/goods/goodList",3000;
+            },
+            cancel: function (){
+                window.location.href = "/goods/goodList",3000;
+            }
+        });
+    });
+
+
+</script>
+</html>
