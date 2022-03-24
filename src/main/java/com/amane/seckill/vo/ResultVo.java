@@ -15,4 +15,7 @@ public class ResultVo {
 
     @TableId("create_date")
     private String createDate;
+
+    @TableId("status")
+    private Integer status;
 }

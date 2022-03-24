@@ -4,6 +4,7 @@ import com.amane.seckill.pojo.Order;
 import com.amane.seckill.pojo.User;
 import com.amane.seckill.vo.GoodsVo;
 import com.amane.seckill.vo.OrderDetailVo;
+import com.amane.seckill.vo.RespBean;
 import com.amane.seckill.vo.ResultVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -21,4 +22,6 @@ public interface OrderService extends IService<Order> {
     boolean verifyPath(User user, Long goodsId,String path);
 
     List<ResultVo> checkOrder(Long userId);
+
+    RespBean doPay(Long orderID);
 }

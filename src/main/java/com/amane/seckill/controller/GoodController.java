@@ -92,7 +92,7 @@ public class GoodController {
     @RequestMapping("/goodList")
     public String toGood(User user){
         if (user == null){
-            return "forward:/login.html";
+            return "redirect:/login/toLogin";
         }
         return "forward:/goods.html";
     }
@@ -100,7 +100,7 @@ public class GoodController {
     @RequestMapping("/goodDetail/{goodID}")
     public String toGoodDetail(User user, @PathVariable("goodID") Long id){
         if (user == null){
-            return "forward:/login/toLogin";
+            return "redirect:/login/toLogin";
         }else if (user.getPhone() == 0L){
             return "forward:/fail.html";
         }

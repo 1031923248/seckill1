@@ -2,6 +2,7 @@ package com.amane.seckill.service.impl;
 
 import com.amane.seckill.Exception.GlobalException;
 import com.amane.seckill.mapper.OrderMapper;
+import com.amane.seckill.mapper.UserMapper;
 import com.amane.seckill.pojo.Order;
 import com.amane.seckill.pojo.SeckillGoods;
 import com.amane.seckill.pojo.SeckillOrder;
@@ -22,6 +23,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -36,6 +38,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderMapper orderMapper;
     @Autowired
     private SeckillOrderService seckillOrderService;
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -115,5 +119,25 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public List<ResultVo> checkOrder(Long userId) {
         return orderMapper.findResultByUserId(userId);
+    }
+
+    @Override
+    public RespBean doPay(Long orderID) {
+        Order order = orderMapper.selectById(orderID);
+        String uid = String.valueOf(order.getUserId());
+        User user = userMapper.getByPhone(uid);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone",uid);
+        BigDecimal balance = user.getBalance();
+        BigDecimal orderPrice = order.getGoodsPrice();
+        if (balance.compareTo(orderPrice) < 0 ){
+            return RespBean.error(RespBeanEnum.BANLANCE_ERROR);
+        }
+        user.setBalance(balance.subtract(orderPrice));
+        userMapper.update(user,wrapper);
+        order.setPayDate(new Date());
+        order.setStatus(1);
+        orderMapper.updateById(order);
+        return RespBean.success();
     }
 }

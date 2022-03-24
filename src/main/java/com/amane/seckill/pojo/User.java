@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -23,4 +24,5 @@ public class User implements Serializable {
     private int credit;
     private int age;
     private int yuqi;
+    private BigDecimal balance;
 }

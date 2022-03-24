@@ -12,6 +12,8 @@
     <script type="text/javascript" src="/layer/layer.js"></script>
     <!-- common.js -->
     <script type="text/javascript" src="/js/common.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
 </head>
 <body>
 <div class="panel panel-default">
@@ -36,32 +38,41 @@
         <tr>
             <td>订单状态</td>
             <td >
-                <!--<span th:if="${order.status eq 0}">未支付</span>
-                <span th:if="${order.status eq 1}">待发货</span>
-                <span th:if="${order.status eq 2}">已发货</span>
-                <span th:if="${order.status eq 3}">已收货</span>
-                <span th:if="${order.status eq 4}">已退款</span>
-                <span th:if="${order.status eq 5}">已完成</span>-->
                 <span id="status"></span>
             </td>
             <td>
-                <button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
+                <button class="btn btn-primary btn-block" type="submit" id="payButton" onclick="doPay()">立即支付</button>
             </td>
-        </tr>
-        <tr>
-            <td>收货人</td>
-            <td colspan="2">无</td>
-        </tr>
-        <tr>
-            <td>收货地址</td>
-            <td colspan="2">无</td>
         </tr>
     </table>
 </div>
 <script>
     $(document).ready(function (){
         getOrderDetail();
+
     })
+
+    function doPay(){
+        var orderID = location.pathname.match('[^/]+(?!.*/)')[0];
+        $.ajax({
+            url: '/order/doPay',
+            type: 'GET',
+            data: {
+                orderID:orderID
+            },
+            success:function (data){
+                if(data.code == 200){
+                    layer.msg("支付成功");
+                    setTimeout(function (){location.reload()},3000);
+                }else {
+                    layer.msg(data.message);
+                }
+            },
+            error:function (){
+                layer.msg("客户端出错")
+            }
+        })
+    }
 
     function getOrderDetail(){
         var orderId = location.pathname.match('[^/]+(?!.*/)')[0];
@@ -93,7 +104,7 @@
         var order = obj.order;
         $("#goodsName").text(goods.goodsName);
         $("#goodsId").text(goods.id);
-        $("#goodsPrice").text(goods.goodsPrice);
+        $("#goodsPrice").text(goods.seckillPrice);
         $("#createDate").text(new Date(order.createDate).format("yyyy-MM-dd HH:mm:ss"));
         $("#goodsImg").attr("src",goods.goodsImg);
         var status = order.status;
@@ -103,22 +114,13 @@
                 statusValue = "未支付";
                 break;
             case 1:
-                statusValue = "待发货";
-                break;
-            case 2:
-                statusValue = "已发货";
-                break;
-            case 3:
-                statusValue = "已收货";
-                break;
-            case 4:
-                statusValue = "已退款";
-                break;
-            case 5:
-                statusValue = "已完成";
+                statusValue = "已支付";
                 break;
         }
         $("#status").text(statusValue);
+        if (status == 1){
+            $("#payButton").attr("disabled",true);
+        }
     }
 </script>
 

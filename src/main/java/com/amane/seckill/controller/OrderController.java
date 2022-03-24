@@ -43,8 +43,14 @@ public class OrderController {
     @RequestMapping(value = "/pay/{result}")
     public String toDetail(User user,@PathVariable("result") Long result){
         if(user == null){
-            return "forward:/login/toLogin";
+            return "redirect:/login/toLogin";
         }
         return "forward:/orderDetail.htm?orderId="+result;
+    }
+
+    @RequestMapping(value = "/doPay",produces = "application/json")
+    @ResponseBody
+    public RespBean doPay(Long orderID){
+        return orderService.doPay(orderID);
     }
 }

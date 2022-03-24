@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amane.seckill.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.amane.seckill.pojo.User">
+        <id column="phone" property="phone" />
+        <result column="password" property="password" />
+        <result column="name" property="name" />
+        <result column="email" property="email" />
+        <result column="job" property="job" />
+        <result column="credit" property="credit" />
+        <result column="age" property="age" />
+        <result column="yuqi" property="yuqi" />
+        <result column="balance" property="balance" />
+        <result column="identity" property="identity" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        phone, password, name, identity, email, job, credit, age, yuqi, balance
+    </sql>
+</mapper>

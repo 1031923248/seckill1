@@ -29,8 +29,9 @@ public enum RespBeanEnum {
     REPEAT_GOOD(530,"该商品已经存在"),
     SIZE_OVER(540,"文件必须小于4M"),
     UPLOAD_COMPLETE(200,"上传成功！"),
-    DELETE_ERROR(550,"删除失败")
-    ;
+    DELETE_ERROR(550,"删除失败"),
+    BANLANCE_ERROR(500501,"用户余额不足" ),
+    PAY_SUCCESS(500200,"支付成功" );
 
     private Integer code;
     private String message;
