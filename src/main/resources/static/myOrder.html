@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀成功用户</title>
+    <!-- jquery -->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- layer -->
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <!-- common.js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading layui-bg-cyan">我的订单</div>
+    <table class="table" id="goodslist">
+        <tr>
+            <td> 产品名称</td>
+            <td class="layui-bg-green" >秒杀时间</td>
+            <td >订单状态</td>
+            <td class="layui-bg-green" >进入订单页面</td>
+
+        </tr>
+        <tbody id="table_node">
+        <!--动态载入数据-->
+        <!-- more data -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    /**
+     * 自动加载规则流水信息
+     */
+
+    window.onload = function () {
+        var uid = g_getQueryString("userId");
+        //var goodsId = location.pathname.match('[^/]+(?!.*/)')[0];
+        $.ajax({
+            type: 'GET',
+            url: "/order/check",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data :{
+                userId : uid
+            },
+            success: function (data){
+                $("#table_node").empty()
+                //取出后端传过来的list值
+                //对list值进行便利
+                var value;
+                $.each(data, function (index, element) {
+                    if (element.status == 0){
+                        value = "未支付";
+                    }else{
+                        value = "已支付";
+                    }
+                    var order = "<tr>" + "<td>" + element.goodsName +"</td>"
+                        +"<td class='layui-bg-green'>" + element.createDate +  "</td>"
+                        +"<td>" + value +  "</td>"+"<td>"
+                        + "<a href='/order/pay/"+element.id+"'>查看详情</a>"+"</td>"
+                        +"</tr>"
+                    //将信息追加
+                    $("#table_node").append(order);
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

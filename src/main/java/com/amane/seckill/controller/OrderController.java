@@ -53,4 +53,14 @@ public class OrderController {
     public RespBean doPay(Long orderID){
         return orderService.doPay(orderID);
     }
+
+    @RequestMapping(value = "/toOrders")
+    public String checkOrder(User user){
+        if (user == null){
+            return "redirect:/login/toLogin";
+        }
+        Long uid = user.getPhone();
+        return "redirect:/myOrder.html?userId="+uid;
+    }
+
 }

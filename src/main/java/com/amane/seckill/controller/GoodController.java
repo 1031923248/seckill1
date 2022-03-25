@@ -106,6 +106,7 @@ public class GoodController {
         }
         return "forward:/goodsDetail.htm?goodsId="+id;
     }
+
     /*@RequestMapping(value = "/toDetail/{goodsId}", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String toDetail2(Model model, User user, @PathVariable Long goodsId,HttpServletRequest request,HttpServletResponse response){

@@ -16,36 +16,62 @@
     <script src="/layui/layui.js"></script>
 </head>
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading">秒杀订单详情</div>
-    <table class="table" id="order">
-        <tr>
-            <td>商品名称</td>
-            <td id="goodsName" colspan="3"></td>
-        </tr>
-        <tr>
-            <td>商品图片</td>
-            <td colspan="2"><img id="goodsImg" width="100" height="100" /></td>
-        </tr>
-        <tr>
-            <td>订单价格</td>
-            <td colspan="2" id="goodsPrice"></td>
-        </tr>
-        <tr>
-            <td>下单时间</td>
-            <td id="createDate" colspan="2"></td>
-        </tr>
-        <tr>
-            <td>订单状态</td>
-            <td >
-                <span id="status"></span>
-            </td>
-            <td>
-                <button class="btn btn-primary btn-block" type="submit" id="payButton" onclick="doPay()">立即支付</button>
-            </td>
-        </tr>
-    </table>
+
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h>银行秒杀订单详情</h>
+        <div>
+            <ul class="layui-nav layui-layout-right layui-bg-green">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/img/user.jpg" class="layui-nav-img">
+                        user
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="/order/toOrders">我的订单</a>
+                        </dd>
+                        <dd>
+                            <a href="/login/toLogin">退出</a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <div class="panel-body">
+        </div>
+        <table class="table" id="order">
+            <tr>
+                <td class="layui-bg-green">商品名称</td>
+                <td id="goodsName" colspan="3"></td>
+            </tr>
+            <tr>
+                <td>商品图片</td>
+                <td colspan="2"><img id="goodsImg" width="100" height="100" /></td>
+            </tr>
+            <tr>
+                <td class="layui-bg-green">订单价格</td>
+                <td colspan="2" id="goodsPrice"></td>
+            </tr>
+            <tr>
+                <td>下单时间</td>
+                <td id="createDate" colspan="2"></td>
+            </tr>
+            <tr>
+                <td class="layui-bg-green">订单状态</td>
+                <td >
+                    <span id="status"></span>
+                </td>
+                <td>
+                    <button class="btn btn-block btn-primary layui-bg-green" type="submit" id="payButton" onclick="doPay()">立即支付</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
+<button class="layui-btn layui-col-md2" id="toAddGoods" onclick="window.location.href='/goods/goodList'">返回首页</button>
 <script>
     $(document).ready(function (){
         getOrderDetail();

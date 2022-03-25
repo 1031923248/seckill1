@@ -12,6 +12,6 @@ import java.util.List;
 public interface OrderMapper extends BaseMapper<Order> {
     @Select("select * from t_order where goods_Id = #{goodsId} ")
     List<ResultVo> findResultByGoodsID(Long goodsId);
-    @Select("select * from t_order where user_id = #{userId}}")
+    @Select("select * from t_order where user_id = #{userId}")
     List<ResultVo> findResultByUserId(Long userId);
 }

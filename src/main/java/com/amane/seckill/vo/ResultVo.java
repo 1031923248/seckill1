@@ -18,4 +18,7 @@ public class ResultVo {
 
     @TableId("status")
     private Integer status;
+
+    @TableId("id")
+    private Integer id;
 }

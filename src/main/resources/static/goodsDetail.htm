@@ -17,67 +17,89 @@
     <script src="/layui/layui.js"></script>
 </head>
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading layui-bg-green layui-col-lg-md6">秒杀产品详情</div>
-    <div class="panel-body">
-        <span id="userTip"> 您还没有登录，请登陆后再操作<br/></span>
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h>银行秒杀产品详情</h>
+        <div>
+            <ul class="layui-nav layui-layout-right layui-bg-green">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/img/user.jpg" class="layui-nav-img">
+                        user
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="/order/toOrders">我的订单</a>
+                        </dd>
+                        <dd>
+                            <a href="/login/toLogin">退出</a>
+                        </dd>
+
+                    </dl>
+                </li>
+            </ul>
+        </div>
     </div>
-    <table class="table" id="goods">
-        <tr>
-            <div class="layui-row">
-                <div class="layui-panel">
-                    <td class="layui-bg-green">产品名称</td>
+    <div class="layui-card-body">
+        <div class="panel-body">
+            <span id="userTip"> 您还没有登录，请登陆后再操作<br/></span>
+        </div>
+        <table class="table" id="goods">
+            <tr>
+                <div class="layui-row">
+                    <div class="layui-panel">
+                        <td class="layui-bg-green">产品名称</td>
+                    </div>
+                    <div class="layui-col-md3">
+                        <td id="goodsName"></td>
+                    </div>
                 </div>
-                <div class="layui-col-md3">
-                    <td id="goodsName"></td>
+            </tr>
+            <tr>
+                <div class="layui-row">
+                    <div class="layui-col-md3 layui-panel">
+                        <td class="layui-bg-gray">产品图片</td>
+                    </div>
+                    <div class="layui-col-md3">
+                        <td colspan="3"><img id="goodsImg" width="100" height="100"/></td>
+                    </div>
                 </div>
-            </div>
-        </tr>
-        <tr>
-            <div class="layui-row">
-                <div class="layui-col-md3 layui-panel">
-                    <td class="layui-bg-gray">产品图片</td>
-                </div>
-                <div class="layui-col-md3">
-                    <td colspan="3"><img id="goodsImg" width="100" height="100"/></td>
-                </div>
-            </div>
-
-
-        </tr>
-        <tr>
-            <td class="layui-bg-green layui-panel">秒杀开始时间</td>
-            <td id="startTime"></td>
-            <td>
-                <input type="hidden" id="remainSeconds" >
-                <span  id="msTips"></span>
-                <!--<span th:if="${msStatus eq 0}">秒杀倒计时:<span id="remains" th:text="${remainSeconds}"></span></span>
-                <span th:if="${msStatus eq 1}">秒杀进行中</span>
-                <span th:if="${msStatus eq 2}">秒杀已结束</span>-->
-            </td>
-            <td>
-                <!--<form action="/seckill/dokill" method="post" id="seckillForm">
+            </tr>
+            <tr>
+                <td class="layui-bg-green layui-panel">秒杀开始时间</td>
+                <td id="startTime"></td>
+                <td>
+                    <input type="hidden" id="remainSeconds" >
+                    <span  id="msTips"></span>
+                    <!--<span th:if="${msStatus eq 0}">秒杀倒计时:<span id="remains" th:text="${remainSeconds}"></span></span>
+                    <span th:if="${msStatus eq 1}">秒杀进行中</span>
+                    <span th:if="${msStatus eq 2}">秒杀已结束</span>-->
+                </td>
+                <td>
+                    <!--<form action="/seckill/dokill" method="post" id="seckillForm">
+                        <input type="hidden" name="goodsId" id="goodsId" >
+                        <button id="msbtn" type="submit" class="btn btn-block btn-primary">立即秒杀</button>
+                    </form>-->
                     <input type="hidden" name="goodsId" id="goodsId" >
-                    <button id="msbtn" type="submit" class="btn btn-block btn-primary">立即秒杀</button>
-                </form>-->
-                <input type="hidden" name="goodsId" id="goodsId" >
-                <button id="msbtn" type="button" onclick="getPath()" class="btn btn-block btn-primary layui-bg-green">立即秒杀</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="layui-bg-gray layui-panel">产品描述</td>
-            <td colspan="3" id="goodsDetail"></td>
-        </tr>
-        <tr>
-            <td class="layui-bg-green">秒杀价格</td>
-            <td colspan="3" id="seckillPrice"></td>
-        </tr>
-        <tr>
-            <td class="layui-bg-gray">库存数量</td>
-            <td colspan="3" id="stockCount"></td>
-        </tr>
-    </table>
+                    <button id="msbtn" type="button" onclick="getPath()" class="btn btn-block btn-primary layui-bg-green">立即秒杀</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="layui-bg-gray layui-panel">产品描述</td>
+                <td colspan="3" id="goodsDetail"></td>
+            </tr>
+            <tr>
+                <td class="layui-bg-green">秒杀价格</td>
+                <td colspan="3" id="seckillPrice"></td>
+            </tr>
+            <tr>
+                <td class="layui-bg-gray">库存数量</td>
+                <td colspan="3" id="stockCount"></td>
+            </tr>
+        </table>
+    </div>
 </div>
+<button class="layui-btn layui-col-md2" id="toAddGoods" onclick="window.location.href='/goods/goodList'">返回首页</button>
 </body>
 <script>
     $(function (){

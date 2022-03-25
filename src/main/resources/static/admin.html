@@ -3,8 +3,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>管理系统</title>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <link rel="stylesheet" href="layui/css/layui.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 
@@ -15,40 +15,14 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="img/admin.png" class="layui-nav-img">
+                    <img src="/img/admin.png" class="layui-nav-img">
                     admin
                 </a>
                 <dl class="layui-nav-child">
-
                     <dd>
-                        <!--TODO -->
-                        <!--需要修改为自己项目的部分：-->
-                        <!--1、属性data-url（需要在右边选项卡中打开的页面的路径）  -->
-                        <!--2、属性data-title（选项卡标题）-->
-                        <!--3、属性data-id必须唯一，tab选项卡根据这个值进行切换-->
-
-                        <a href="#" data-url="profile" data-title="个人资料" data-id="44" class="site-demo-active"
-                           data-type="tabAdd">
-                            个人资料
-                        </a>
-                    </dd>
-
-                    <dd>
-                        <!--TODO -->
-                        <!--需要修改为自己项目的部分：-->
-                        <!--1、属性data-url（需要在右边选项卡中打开的页面的路径）  -->
-                        <!--2、属性data-title（选项卡标题）-->
-                        <!--3、属性data-id必须唯一，tab选项卡根据这个值进行切换-->
-                        <a href="#" data-url="password" data-title="修改密码" data-id="55" class="site-demo-active" data-type="tabAdd">
-                            修改密码
-                        </a>
+                        <a href="/admin/toLogin">退出</a>
                     </dd>
                 </dl>
-            </li>
-            <li class="layui-nav-item">
-                <!--TODO -->
-                <!--可能需要修改路径-->
-                <a href="/admin/toLogin">退出</a>
             </li>
         </ul>
     </div>
@@ -71,7 +45,7 @@
                         <!--2、属性data-title（选项卡标题）-->
                         <!--3、属性data-id必须唯一，tab选项卡根据这个值进行切换-->
                         <!--4、id，也必须唯一，这里id设置为default-tab，设置该选项卡为默认显示的-->
-                        <a href="#" data-url="goodsManager" data-title="商品管理" data-id="11" id="default-tab" class="site-demo-active"
+                        <a href="#" data-url="/goodsManager" data-title="商品管理" data-id="11" id="default-tab" class="site-demo-active"
                            data-type="tabAdd">
                             商品管理
                         </a>
@@ -83,7 +57,7 @@
                         <!--1、属性data-url（需要在右边选项卡中打开的页面的路径）  -->
                         <!--2、属性data-title（选项卡标题）-->
                         <!--3、属性data-id必须唯一，tab选项卡根据这个值进行切换-->
-                        <a href="#" data-url="addGoods" data-title="添加秒杀商品" data-id="22" class="site-demo-active"
+                        <a href="#" data-url="/addGoods" data-title="添加秒杀商品" data-id="22" class="site-demo-active"
                            data-type="tabAdd">
                             添加秒杀商品
                         </a>
@@ -119,7 +93,7 @@
 
 </div>
 
-<script src="layui/layui.js"></script>
+<script src="/layui/layui.js"></script>
 
 <script>
 
