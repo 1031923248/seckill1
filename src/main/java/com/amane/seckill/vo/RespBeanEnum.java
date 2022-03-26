@@ -31,7 +31,8 @@ public enum RespBeanEnum {
     UPLOAD_COMPLETE(200,"上传成功！"),
     DELETE_ERROR(550,"删除失败"),
     BANLANCE_ERROR(500501,"用户余额不足" ),
-    PAY_SUCCESS(500200,"支付成功" );
+    PAY_SUCCESS(500200,"支付成功" ),
+    REQUEST_LIMIT(500502,"访问过于频繁！" );
 
     private Integer code;
     private String message;

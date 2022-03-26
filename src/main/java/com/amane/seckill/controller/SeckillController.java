@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("/seckill")
@@ -44,8 +46,31 @@ public class SeckillController implements InitializingBean {
 
     public static Map<Long,Boolean> emptyStock = new HashMap<>();
 
+    @RequestMapping(value = "/dokill",method = RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public RespBean doKill02(User user, Long goodsId) {
+        if (user == null) {
+            return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
+        }
+        if (emptyStock.get(goodsId)) {
+            return RespBean.error(RespBeanEnum.STORK_EMPTY);
+        }
 
-
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + user.getPhone() + ":" + goodsId);
+        if (seckillOrder != null) {
+            return RespBean.error(RespBeanEnum.REPEAT_ERROR);
+        }
+        Long stock = valueOperations.decrement("msGoods:" + goodsId);
+        if (stock < 0) {
+            emptyStock.put(goodsId, true);
+            valueOperations.increment("msGoods:" + goodsId);
+            return RespBean.error(RespBeanEnum.STORK_EMPTY);
+        }
+        SeckillMessage message = new SeckillMessage(user, goodsId);
+        mqSender.sendMS(JsonUtil.object2JsonStr(message));
+        return RespBean.success(0);
+    }
     @RequestMapping(value = "/{path}/dokill",method = RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public RespBean doKill(@PathVariable String path, User user, Long goodsId){
@@ -113,9 +138,22 @@ public class SeckillController implements InitializingBean {
      }
     @RequestMapping(value = "/path",method = RequestMethod.GET)
     @ResponseBody
-    public RespBean getPath(User user,Long goodsId){
+    public RespBean getPath(User user, Long goodsId, HttpServletRequest request){
         if (user == null){
             return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
+        }
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        String uri = request.getRequestURI();
+        /*
+        * 单用户接口限流，设置为3秒内最多访问5次。
+        * */
+        Integer times = (Integer) valueOperations.get(uri+":"+user.getPhone());
+        if (times == null){
+            valueOperations.set(uri+":"+user.getPhone(),1,3, TimeUnit.SECONDS);
+        }else if(times < 5){
+            valueOperations.increment(uri+":"+user.getPhone());
+        }else {
+            return RespBean.error(RespBeanEnum.REQUEST_LIMIT);
         }
         String str = orderService.createPath(user,goodsId);
         return RespBean.success(str);
