@@ -32,7 +32,8 @@ public enum RespBeanEnum {
     DELETE_ERROR(550,"删除失败"),
     BANLANCE_ERROR(500501,"用户余额不足" ),
     PAY_SUCCESS(500200,"支付成功" ),
-    REQUEST_LIMIT(500502,"访问过于频繁！" );
+    REQUEST_LIMIT(500502,"访问过于频繁！" ),
+    USER_LIMIT(500503,"您没有资格参加本次活动" );
 
     private Integer code;
     private String message;

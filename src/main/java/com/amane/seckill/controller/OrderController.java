@@ -28,6 +28,7 @@ public class OrderController {
         OrderDetailVo detailVo = orderService.detail(orderId);
         return RespBean.success(detailVo);
     }
+
     @RequestMapping(value = "/result",produces = "application/json")
     @ResponseBody
     public List<ResultVo> getResult(Long goodsId){

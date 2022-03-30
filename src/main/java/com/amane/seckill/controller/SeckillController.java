@@ -49,8 +49,10 @@ public class SeckillController implements InitializingBean {
     @RequestMapping(value = "/dokill",method = RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public RespBean doKill02(User user, Long goodsId) {
-        if (user == null) {
+        if(user == null){
             return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
+        }else if (user.getPhone() == 0){
+            return RespBean.error(RespBeanEnum.USER_LIMIT);
         }
         if (emptyStock.get(goodsId)) {
             return RespBean.error(RespBeanEnum.STORK_EMPTY);
@@ -76,6 +78,8 @@ public class SeckillController implements InitializingBean {
     public RespBean doKill(@PathVariable String path, User user, Long goodsId){
         if(user == null){
             return RespBean.error(RespBeanEnum.USER_NOT_EXIST);
+        }else if (user.getPhone() == 0){
+            return RespBean.error(RespBeanEnum.USER_LIMIT);
         }
         if (emptyStock.get(goodsId)){
             return RespBean.error(RespBeanEnum.STORK_EMPTY);

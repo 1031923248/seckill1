@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
@@ -97,6 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         user.setIdentity(identity);
         user.setName(name);
         user.setPassword(password);
+        user.setBalance(new BigDecimal("20000"));
         userMapper.insert(user);
         return RespBean.success(RespBeanEnum.REGISTER_SUCCESS);
     }

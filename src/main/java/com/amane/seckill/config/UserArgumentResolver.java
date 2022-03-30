@@ -44,9 +44,9 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         * 注释掉为关闭
         * */
 
-        /*if (!filterUser(user)){
-            return new User();
-        }*/
+//        if (!filterUser(user)){
+//            return new User();
+//        }
 
         return user;
     }
