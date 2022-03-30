@@ -8,16 +8,11 @@ spring:
     username: root
     password: XTxt1234
     hikari:
-      #????
       pool-name: MSDP
-      #???????
       minimum-idle: 5
-      #????????
       max-lifetime: 1800000
-      #?????
       maximum-pool-size: 10
-      #??????????
-      idle-timeout: 1800000
+      idle-timeout: 180000
       auto-commit: true
       connection-timeout: 30000
       connection-test-query: SELECT 1

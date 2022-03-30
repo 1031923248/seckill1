@@ -1,5 +1,6 @@
 package com.amane.seckill.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @ToString
 @TableName("t_user")
 public class User implements Serializable {
+    @TableId(value = "phone")
     private long phone;
     private String password;
     private String name;
