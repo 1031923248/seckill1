@@ -9,6 +9,8 @@ import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 @TableName("t_admin")
 @Data
@@ -22,4 +24,7 @@ public class Admin implements Serializable {
 
     @TableId("password")
     private String password;
+
+    @TableId("internal_account")
+    private BigDecimal internalAccount;
 }

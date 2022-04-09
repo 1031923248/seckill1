@@ -1,12 +1,10 @@
 package com.amane.seckill.service.impl;
 
 import com.amane.seckill.Exception.GlobalException;
+import com.amane.seckill.mapper.AdminMapper;
 import com.amane.seckill.mapper.OrderMapper;
 import com.amane.seckill.mapper.UserMapper;
-import com.amane.seckill.pojo.Order;
-import com.amane.seckill.pojo.SeckillGoods;
-import com.amane.seckill.pojo.SeckillOrder;
-import com.amane.seckill.pojo.User;
+import com.amane.seckill.pojo.*;
 import com.amane.seckill.service.GoodService;
 import com.amane.seckill.service.OrderService;
 import com.amane.seckill.service.SeckillGoodsService;
@@ -42,26 +40,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private UserMapper userMapper;
     @Autowired
     private RedisTemplate redisTemplate;
-
+    @Autowired
+    private AdminMapper adminMapper;
     @Override
     @Transactional
     public Order seckill(User user, GoodsVo goods) {
         SeckillGoods good = seckillGoodsService.getOne(new QueryWrapper<SeckillGoods>().eq("goods_id",goods.getId()));
-//        if (good.getStockCount() < 1){
-//            redisTemplate.opsForValue().set("isEmpty:"+goods.getId(),1);
-//            return null;
-//        }
-//        good.setStockCount(good.getStockCount()-1);
+
         seckillGoodsService.update(new UpdateWrapper<SeckillGoods>().eq("goods_id",
                 goods.getId()).setSql("stock_count = stock_count-1"));
-        //good.setStockCount(good.getStockCount()-1);
-        //seckillGoodsService.updateById(good);
-        //boolean res = seckillGoodsService.update(new UpdateWrapper<SeckillGoods>().gt("stock_count",0).eq("goods_id",
-        //goods.getId()).setSql("stock_count = stock_count-1"));
 
-        /*if(!res){
-            return null;
-        }*/
         Order order = new Order();
         order.setUserId(user.getPhone());
         order.setGoodsId(goods.getId());
@@ -72,7 +60,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setStatus(0);
         order.setCreateDate(new Date());
         orderMapper.insert(order);
-
         SeckillOrder seckillOrder = new SeckillOrder();
         seckillOrder.setOrderId(order.getId());
         seckillOrder.setGoodsId(order.getGoodsId());
@@ -135,6 +122,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         user.setBalance(balance.subtract(orderPrice));
         userMapper.update(user,wrapper);
+        adminMapper.updateAccount(orderPrice);
         order.setPayDate(new Date());
         order.setStatus(1);
         orderMapper.updateById(order);

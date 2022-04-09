@@ -104,21 +104,6 @@ public class SeckillController implements InitializingBean {
         mqSender.sendMS(JsonUtil.object2JsonStr(message));
         return RespBean.success(0);
 
-        /*if(user == null){
-            return RespBean.error(RespBeanEnum.USER_NOT_EXSIT);
-        }
-        GoodsVo goodsVo = goodService.getGoodsVoById(goodsId);
-        if (goodsVo.getStockCount() < 1){
-            return RespBean.error(RespBeanEnum.STORK_EMPTY);
-        }
-
-        //SeckillOrder seckillOrder = seckillOrderService.getOne(new QueryWrapper<SeckillOrder>().eq("user_id",user.getPhone()).eq("goods_id",goodsId));
-        SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:"+user.getPhone()+":"+goodsId);
-        if(seckillOrder != null){
-            return RespBean.error(RespBeanEnum.REPEATE_ERROR);
-        }
-        Order order = orderService.seckill(user,goodsVo);
-        return RespBean.success(order);*/
     }
     @RequestMapping(value = "/result",method = RequestMethod.GET)
     @ResponseBody
@@ -162,25 +147,4 @@ public class SeckillController implements InitializingBean {
         String str = orderService.createPath(user,goodsId);
         return RespBean.success(str);
     }
-    /*@RequestMapping("/dokill")
-    public String doKill(Model model, User user,Long goodsId){
-        if(user == null){
-            return "login";
-        }
-        model.addAttribute("user",user);
-        GoodsVo goodsVo = goodService.getGoodsVoById(goodsId);
-        if (goodsVo.getStockCount() < 1){
-            model.addAttribute("msg", RespBeanEnum.STORK_EMPTY);
-            return "seckillFail";
-        }
-        SeckillOrder seckillOrder = seckillOrderService.getOne(new QueryWrapper<SeckillOrder>().eq("user_id",user.getPhone()).eq("goods_id",goodsId));
-        if(seckillOrder != null){
-            model.addAttribute("msg",RespBeanEnum.REPEATE_ERROR);
-            return "seckillFail";
-        }
-        Order order = orderService.seckill(user,goodsVo);
-        model.addAttribute("order",order);
-        model.addAttribute("goods",goodsVo);
-        return "orderDetail";
-    }*/
 }
