@@ -32,26 +32,6 @@ public class GoodController {
     GoodService goodService;
     @Autowired
     RedisTemplate redisTemplate;
-//    @RequestMapping("/goodList")
-//    @ResponseBody
-//    public String toGood(Model model, User user, HttpServletResponse response, HttpServletRequest request){
-////        if (user == null){
-////            return "login";
-////        }
-//        ValueOperations valueOperations = redisTemplate.opsForValue();
-//        String html = (String) valueOperations.get("goods");
-//        if(!StringUtils.isEmpty(html)){
-//            return html;
-//        }
-//        model.addAttribute("goodsList",goodService.getGoodsVo());
-//        model.addAttribute( "user",user);
-//        WebContext webContext = new WebContext(request,response,request.getServletContext(),request.getLocale(), model.asMap());
-//        html = thymeleafViewResolver.getTemplateEngine().process("goods",webContext);
-//        if (!StringUtils.isEmpty(html)){
-//            valueOperations.set("goods",html,60, TimeUnit.SECONDS);
-//        }
-//        return html;
-//    }
 
     @RequestMapping( value = "/toDetail/{goodsId}",produces = "application/json")
     @ResponseBody
@@ -107,54 +87,4 @@ public class GoodController {
         return "forward:/goodsDetail.htm?goodsId="+id;
     }
 
-    /*@RequestMapping(value = "/toDetail/{goodsId}", produces = "text/html;charset=utf-8")
-    @ResponseBody
-    public String toDetail2(Model model, User user, @PathVariable Long goodsId,HttpServletRequest request,HttpServletResponse response){
-        ValueOperations valueOperations = redisTemplate.opsForValue();
-        String html = (String) valueOperations.get("goodsDetail:"+goodsId);
-        if(!StringUtils.isEmpty(html)){
-            return html;
-        }
-        GoodsVo goodsVo = goodService.getGoodsVoById(goodsId);
-        Date startTime = goodsVo.getStartDate();
-        Date endTime = goodsVo.getEndDate();
-        Date nowTime = new Date();
-        int remainSeconds = 0;
-        int msStatus = 0;
-        if(nowTime.after(endTime)){
-            remainSeconds = -1;
-            msStatus = 2;
-        }
-        else if (nowTime.before(startTime)){
-            remainSeconds = (int) ((startTime.getTime() - nowTime.getTime()) / 1000);
-        }
-        else {
-            msStatus = 1;
-        }
-        model.addAttribute("remainSeconds",remainSeconds);
-        model.addAttribute("user",user);
-        model.addAttribute("goods",goodsVo);
-        model.addAttribute("msStatus",msStatus);
-        WebContext webContext = new WebContext(request,response,request.getServletContext(),request.getLocale(), model.asMap());
-        html = thymeleafViewResolver.getTemplateEngine().process("goodsDetail",webContext);
-        if(!StringUtils.isEmpty(html)){
-            valueOperations.set("goodsDetail:"+goodsId,html,60,TimeUnit.SECONDS);
-        }
-        return html;
-    }*/
-
-
-//    @RequestMapping("/goodList")
-//    public String toGood(HttpServletRequest request, HttpServletResponse response, Model model, @CookieValue("userTicket") String ticket){
-//        if(StringUtils.isEmpty(ticket)){
-//            return "login";
-//        }
-//        //User user = (User) session.getAttribute(ticket);
-//        User user = userService.getUserByCookie(ticket,response,request);
-//        if(null == user){
-//            return "login";
-//        }
-//        model.addAttribute("user",user);
-//        return "goods";
-//    }
 }
