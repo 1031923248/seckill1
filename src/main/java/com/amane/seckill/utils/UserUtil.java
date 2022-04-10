@@ -12,15 +12,6 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 生成用户工具类
- * <p>
- * 乐字节：专注线上IT培训
- * 答疑老师微信：lezijie
- *
- * @author zhoubin
- * @since 1.0.0
- */
 public class UserUtil {
 	private static void createUser(int count) throws Exception {
 		List<User> users = new ArrayList<>(count);

@@ -1,7 +1,6 @@
 package com.amane.seckill.config;
 
 import com.amane.seckill.pojo.Admin;
-import com.amane.seckill.pojo.User;
 import com.amane.seckill.service.AdminService;
 import com.amane.seckill.utils.CookieUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;

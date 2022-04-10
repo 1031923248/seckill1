@@ -3,7 +3,9 @@ package com.amane.seckill.vo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-
+/**
+ * 返回值枚举类
+ */
 @ToString
 @Getter
 @AllArgsConstructor

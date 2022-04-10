@@ -71,15 +71,8 @@
                 <td>
                     <input type="hidden" id="remainSeconds" >
                     <span  id="msTips"></span>
-                    <!--<span th:if="${msStatus eq 0}">秒杀倒计时:<span id="remains" th:text="${remainSeconds}"></span></span>
-                    <span th:if="${msStatus eq 1}">秒杀进行中</span>
-                    <span th:if="${msStatus eq 2}">秒杀已结束</span>-->
                 </td>
                 <td>
-                    <!--<form action="/seckill/dokill" method="post" id="seckillForm">
-                        <input type="hidden" name="goodsId" id="goodsId" >
-                        <button id="msbtn" type="submit" class="btn btn-block btn-primary">立即秒杀</button>
-                    </form>-->
                     <input type="hidden" name="goodsId" id="goodsId" >
                     <button id="msbtn" type="button" onclick="getPath()" class="btn btn-block btn-primary layui-bg-green">立即秒杀</button>
                 </td>

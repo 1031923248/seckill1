@@ -15,12 +15,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {

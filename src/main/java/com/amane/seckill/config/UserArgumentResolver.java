@@ -3,10 +3,7 @@ package com.amane.seckill.config;
 import com.amane.seckill.pojo.User;
 import com.amane.seckill.service.UserService;
 import com.amane.seckill.utils.CookieUtil;
-import com.amane.seckill.utils.UserUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -43,11 +40,9 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         *   开启用户准入决策系统
         * 注释掉为关闭
         * */
-
 //        if (!filterUser(user)){
 //            return new User();
 //        }
-
         return user;
     }
     /*

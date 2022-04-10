@@ -6,13 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-
-/**
- * Cookie工具类
- *
- * @author zhoubin
- * @since 1.0.0
- */
 public final class CookieUtil {
 
     /**
@@ -82,9 +75,6 @@ public final class CookieUtil {
         return retValue;
     }
 
-    /**
-     * 设置Cookie的值 不设置生效时间默认浏览器关闭即失效,也不编码
-     */
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                  String cookieValue) {
         setCookie(request, response, cookieName, cookieValue, -1);
@@ -162,8 +152,6 @@ public final class CookieUtil {
 
     /**
      * 设置Cookie的值，并使其在指定时间内生效
-     *
-     * @param cookieMaxage cookie生效的最大秒数
      */
     private static final void doSetCookie(HttpServletRequest request, HttpServletResponse response,
                                           String cookieName, String cookieValue, int cookieMaxage, String encodeString) {

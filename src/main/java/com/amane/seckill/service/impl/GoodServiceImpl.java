@@ -4,7 +4,6 @@ import com.amane.seckill.mapper.GoodsMapper;
 import com.amane.seckill.pojo.Goods;
 import com.amane.seckill.service.GoodService;
 import com.amane.seckill.vo.GoodsVo;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
