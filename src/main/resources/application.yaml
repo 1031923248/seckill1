@@ -4,9 +4,9 @@ spring:
     cache: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bankms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: XTxt1234
+    url: jdbc:mysql://172.31.32.234:3306/sxfcds2102180?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: sxfcds2102180
+    password: SX_fcds2102180
     hikari:
       pool-name: MSDP
       minimum-idle: 5
@@ -41,8 +41,8 @@ spring:
 #        enabled: true
 #        compressed: true
   rabbitmq:
-    host: 114.55.234.204
-    username: amane
+    host: localhost
+    username: admin
     password: XTxt1234
     virtual-host: /
     port: 5672

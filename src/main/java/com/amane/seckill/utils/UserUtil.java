@@ -46,6 +46,7 @@ public class UserUtil {
 		//登录，生成userTicket
 		String urlString = "http://localhost:8080/login/doLogin";
 		File file = new File("C:\\Users\\\\amane\\Desktop\\config.txt");
+		//File file = new File("/config.txt");
 		if (file.exists()) {
 			file.delete();
 		}

@@ -21,16 +21,17 @@ public class LoginController {
     private UserService userService;
     @Autowired
     private AdminService adminService;
+
     @RequestMapping("/toLogin")
-    public String toLogin(){
+    public String toLogin() {
         return "forward:/login.html";
     }
 
     @RequestMapping("/doLogin")
     @ResponseBody
-    public RespBean doLogin(LoginVo loginVo,HttpServletRequest request,HttpServletResponse response){
-        log.info("{}",loginVo);
-        return userService.doLogin(loginVo,request,response);
+    public RespBean doLogin(LoginVo loginVo, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", loginVo);
+        return userService.doLogin(loginVo, request, response);
     }
 
 }
